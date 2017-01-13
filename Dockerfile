@@ -6,8 +6,8 @@ MAINTAINER marc brown <marc@22walker.co.uk> v0.4
 ENV HOME /root
 ENV DEBIAN_FRONTEND noninteractive
 ENV ASTERISKUSER asterisk
-ENV ASTERISKVER 13.1
-ENV FREEPBXVER 12.0.21
+ENV ASTERISKVER 14.2.1
+ENV FREEPBXVER 1612-1
 ENV ASTERISK_DB_PW pass123
 ENV AUTOBUILD_UNIXTIME 1418234402
 # Use baseimage-docker's init system.
@@ -17,10 +17,10 @@ CMD ["/sbin/my_init"]
 VOLUME ["/etc/freepbxbackup"]
 
 # open up ports needed by freepbx and asterisk 5060 tcp sip reg 80 tcp web port 10000-20000 udp rtp stream  
-EXPOSE 5060
-EXPOSE 80
+EXPOSE 5070
+EXPOSE 8008
 EXPOSE 8009
-EXPOSE 10000-20000/udp
+EXPOSE 10000-10050/udp
 
 # Add start.sh
 ADD start.sh /root/
@@ -60,8 +60,8 @@ RUN git clone https://github.com/asterisk/pjproject.git 1>/dev/null \
   && make install 1>/dev/null \
   
 # Download asterisk.
-# Currently Certified Asterisk 13.1.
-  && curl -sf -o /tmp/asterisk.tar.gz -L http://downloads.asterisk.org/pub/telephony/certified-asterisk/certified-asterisk-13.1-current.tar.gz 1>/dev/null \
+# Currently Certified Asterisk 14.2.1.
+  && curl -sf -o /tmp/asterisk.tar.gz -L http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-14-current.tar.gz 1>/dev/null \
 
 # gunzip asterisk
   && mkdir /tmp/asterisk \
